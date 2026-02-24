@@ -39,6 +39,9 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 const mainPanelTop = siteConfig.banner.enable
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
 	: "5.5rem";
+
+import { pathsEqual, url } from "../utils/url-utils";
+const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
 ---
 
 <Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
@@ -57,6 +60,15 @@ const mainPanelTop = siteConfig.banner.enable
                   src={siteConfig.banner.src} position={siteConfig.banner.position}
     >
     </ImageWrapper>
+    {isHomePage && (
+    <>
+        <div class="absolute inset-0 w-[100%] md:w-[80%] lg:w-[75%] pointer-events-none" style="background: var(--page-bg); mask-image: linear-gradient(to right, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);"></div>
+        <div class="absolute inset-0 max-w-[var(--page-width)] mx-auto px-8 md:px-6 flex flex-col justify-center items-start onload-animation pointer-events-none" style="animation-delay: 300ms">
+            <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold font-serif text-[var(--primary)] mb-3"><span id="typeit-hello"></span></h1>
+            <p class="text-lg md:text-2xl text-neutral-600 dark:text-neutral-400 transition-opacity duration-700">{siteConfig.subtitle}</p>
+        </div>
+    </>
+    )}
 </div>}
 
 <!-- Main content -->
@@ -123,3 +135,35 @@ const mainPanelTop = siteConfig.banner.enable
     </div>
 </div>
 </Layout>
+
+<script>
+    import TypeIt from "typeit";
+
+    function initTypeIt() {
+        const el = document.getElementById("typeit-hello");
+        if (el && !el.hasAttribute("data-typeit-id")) {
+            new TypeIt("#typeit-hello", {
+                strings: [
+                    "Halo..", 
+                    "Hello..", 
+                    "Bonjour..", 
+                    "Hola..", 
+                    "Ciao..", 
+                    "Hallo..", 
+                    "こんにちは..", 
+                    "안녕하세요..", 
+                    "你好.."
+                ],
+                speed: 100,
+                breakLines: false,
+                waitUntilVisible: true,
+                loop: true,
+                deleteSpeed: 50,
+                nextStringDelay: [1500, 500]
+            }).go();
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", initTypeIt);
+    document.addEventListener("astro:page-load", initTypeIt);
+</script>

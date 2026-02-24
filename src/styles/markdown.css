@@ -1,9 +1,15 @@
 .custom-md {
+    @apply font-serif;
     h1 {
-        @apply text-3xl;
+        @apply text-5xl;
+    }
+
+    p, a, span, li, ul, ol, blockquote, table, th, td, strong, em {
+        @apply font-serif;
     }
 
     h1, h2, h3, h4, h5, h6 {
+        @apply font-sans;
         .anchor {
             @apply transition -m-0.5 ml-[0.2ch] p-0.5 select-none opacity-0 no-underline !important;
 
@@ -20,8 +26,7 @@
     }
 
     a:not(.no-styling) {
-        @apply relative bg-none link font-medium text-[var(--primary)]
-        underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
+        @apply relative bg-none font-medium text-[var(--primary)] underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
         display: inline-block;
@@ -37,7 +42,7 @@
     code {
         @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
 
-        font-family: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        font-family: 'Google Sans Code', 'Google Sans Mono', 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
         &:before {
             content:none;
         }
